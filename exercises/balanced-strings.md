@@ -8,7 +8,31 @@ Implement the following method:
 
 ```java
 public static boolean isBalanced(String str) {
-    ...
+		Deque<Character> stack = new ArrayDeque<>();
+		boolean result = true;
+		for(int i=0; i<str.length(); i++) {
+		switch (str.charAt(i)) {
+		case '(' : stack.push(str.charAt(i));
+		break;
+		case '[' : stack.push(str.charAt(i));
+		break;
+		case '{' : stack.push(str.charAt(i));
+		break;
+		case ')' : {
+		if (stack.pop() != '(') result = false;
+		break;
+		}
+		case ']' : {
+		if (stack.pop() != '[') result = false;
+		break;
+		}
+		case '}' : {
+		if (stack.pop() != '{') result = false;
+		break;
+		}
+        default: break;
+		}
+		return result;
 }
 ```
 
@@ -26,3 +50,11 @@ Use the project in [tp3-balanced-strings](../code/tp3-balanced-strings) to compl
 
 ## Answer
 
+1. The input space is a set of strings. There is only one argument so we don't need to make cartesian products of the domains of all parameters. 
+Characteristics identified: empty, balanced or unbalanced curly braces, balanced or unbalanced parenthesis and balanced or unbalanced square brackets.
+
+2. Statement coverage is 100%. To achieve this, we need to test all the possible cases in `switch` statement, including empty string.
+
+3. We don't have any predicate with more than two boolean operators.
+
+4. PIT generate 11 mutants and killed 11 mutants. The mutation score is 100%.

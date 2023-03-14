@@ -15,3 +15,33 @@ Include the improved test code in this file.
 
 ## Answer
 
+### Test smell
+
+JUnitTestContainsTooManyAsserts implements the test smell "Assertion Roulette".
+
+### Improvement
+
+To resolve this kind of test smell, it is better to separate the test into several tests, each one testing a specific aspect of the code.
+
+For example, in the following test, the test is split into two tests, one for each assertion:
+
+```java
+public class MyTestCase extends TestCase {
+    // Ok
+    public void testMyCaseWithOneAssert() {
+        boolean myVar = false;
+        assertFalse("should be false", myVar);
+    }
+
+    // Bad, too many asserts (assuming max=1)
+    public void testMyCaseWithMoreAsserts() {
+        boolean myVar = false;
+        assertFalse("myVar should be false", myVar);
+        assertEquals("should equals false", false, myVar);
+    }
+}
+```
+
+
+
+
